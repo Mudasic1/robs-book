@@ -1,0 +1,45 @@
+module:
+  name: "Module 1: The Robotic Nervous System (ROS 2)"
+  duration: "Weeks 3-5"
+
+chapters:
+  - id: "ros2-intro"
+    title: "Introduction to ROS 2"
+    objectives:
+      - "Understand ROS 2 architecture within humanoid robotics"
+      - "Differentiate between ROS 1 and ROS 2"
+      - "Install and Configuring ROS 2 Humble"
+    sections:
+      - "What is ROS 2?"
+      - "The Nervous System Analogy"
+      - "Installation Guide (Ubuntu/Windows/Mac)"
+    examples:
+      - "Hello World Publisher"
+
+  - id: "ros2-nodes"
+    title: "Nodes and Topics"
+    objectives:
+      - "Master the pub-sub pattern"
+      - "Create custom message types"
+      - "Visualize data with Rqt"
+    sections:
+      - "Understanding Nodes"
+      - "Topics: The Axons of the Robot"
+      - "Rqt Graph Visualization"
+    examples:
+      - "Camera sensor publisher"
+      - "Motor controller subscriber"
+
+  - id: "ros2-services"
+    title: "Services and Actions"
+    objectives:
+      - "Understand synchronous vs asynchronous communication"
+      - "Implement a Service Server and Client"
+      - "Use Actions for long-running robot tasks"
+    sections:
+      - "Services: Request/Response"
+      - "Actions: Goals and Feedback"
+      - "When to use what?"
+    examples:
+      - "Inverse Kinematics Service"
+      - "Walk to Goal Action"

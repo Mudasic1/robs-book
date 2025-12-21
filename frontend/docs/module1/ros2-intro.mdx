@@ -1,0 +1,82 @@
+---
+sidebar_position: 1
+title: Introduction to ROS 2
+---
+
+import PersonalizeButton from '@site/src/components/PersonalizeButton';
+import TranslateButton from '@site/src/components/TranslateButton';
+
+# Introduction to ROS 2
+
+<div style={{ display: 'flex', marginBottom: '20px' }}>
+  <PersonalizeButton chapterId="ros2-intro" />
+  <TranslateButton chapterId="ros2-intro" />
+</div>
+
+## Learning Objectives
+- Understand what ROS 2 is and why it's used in humanoid robotics.
+- Identify the core differences between ROS 1 and ROS 2.
+- Set up a basic workspace.
+
+## What is ROS 2?
+
+**Robot Operating System (ROS)** is not an actual operating system, but a set of software libraries and tools that help you build robot applications. From drivers to state-of-the-art algorithms, and with powerful developer tools, ROS has what you need for your next robotics project.
+
+In the context of **Humanoid Robotics**, ROS 2 acts as the "nervous system." Just as the human nervous system transmits signals between the brain and muscles, ROS 2 handles communication between the robot's high-level AI (digital brain) and its actuators/sensors (physical body).
+
+### Why ROS 2?
+
+ROS 2 is designed for production. Unlike ROS 1, which was research-focused, ROS 2 supports:
+- **Real-time systems**: Critical for balancing a humanoid robot.
+- **Security**: Essential when robots operate near humans.
+- **Embedded systems**: Running on smaller, more efficient chips.
+
+## Core Concepts: Nodes and Topics
+
+At its heart, ROS 2 is about communication.
+
+- **Nodes**: Individual processes that perform computation. One node might control a servo motor, another might process camera images.
+- **Topics**: Buses over which nodes exchange messages. A camera node publishes images to a `/camera/image` topic, which a vision node subscribes to.
+
+![ROS Nodes Diagram](https://docs.ros.org/en/humble/_images/Nodes-TopicandService.gif)
+
+## Hands-On Exercise: Your First Node
+
+Let's write a simple Python node that "speaks" (publishes data).
+
+```python
+import rclpy
+from rclpy.node import Node
+from std_msgs.msg import String
+
+class HumanoidVoice(Node):
+    def __init__(self):
+        super().__init__('humanoid_voice')
+        self.publisher_ = self.create_publisher(String, 'speech_topic', 10)
+        timer_period = 2.0  # seconds
+        self.timer = self.create_timer(timer_period, self.timer_callback)
+        self.i = 0
+
+    def timer_callback(self):
+        msg = String()
+        msg.data = 'Hello Human #%d' % self.i
+        self.publisher_.publish(msg)
+        self.get_logger().info('Publishing: "%s"' % msg.data)
+        self.i += 1
+
+def main(args=None):
+    rclpy.init(args=args)
+    humanoid_voice = HumanoidVoice()
+    rclpy.spin(humanoid_voice)
+    humanoid_voice.destroy_node()
+    rclpy.shutdown()
+
+if __name__ == '__main__':
+    main()
+```
+
+## Summary
+You've just learned the basics of ROS 2 as the nervous system for humanoid robots. In the next section, we will control a virtual robot in standard simulation.
+
+## Next Steps
+[Proceed to Chapter 2: Gazebo Simulation](./ros2-nodes)

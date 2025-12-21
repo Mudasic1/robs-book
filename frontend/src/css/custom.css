@@ -1,0 +1,140 @@
+/* Custom CSS for Physical AI Textbook */
+:root {
+  --ifm-color-primary: #667eea;
+  --ifm-color-primary-dark: #5a6fd1;
+  --ifm-color-primary-darker: #4f60b8;
+  --ifm-color-primary-darkest: #414f98;
+  --ifm-color-primary-light: #7e91f3;
+  --ifm-color-primary-lighter: #8a9bf5;
+  --ifm-color-primary-lightest: #aeb9f9;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] {
+  --ifm-color-primary: #764ba2;
+  --ifm-color-primary-dark: #66418d;
+  --ifm-color-primary-darker: #59387a;
+  --ifm-color-primary-darkest: #412859;
+  --ifm-color-primary-light: #8655b7;
+  --ifm-color-primary-lighter: #8e5ebe;
+  --ifm-color-primary-lightest: #a67fcc;
+}
+
+/* Auth Page Styling */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  padding: 2rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.auth-form-wrapper {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+[data-theme="dark"] .auth-form-wrapper {
+  background: #1b1b1d;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.auth-input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.auth-button {
+  width: 100%;
+  padding: 12px;
+  background: var(--ifm-color-primary);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.auth-button:hover {
+  background: var(--ifm-color-primary-dark);
+}
+
+/* Chat Modal */
+.chat-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.chat-modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+[data-theme="dark"] .chat-modal-content {
+  background: #1b1b1d;
+}
+
+.ask-ai-button {
+  position: absolute;
+  background: var(--ifm-color-primary);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  z-index: 999;
+  animation: popIn 0.2s ease-out;
+}
+
+@keyframes popIn {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+/* Personalize/Translate Buttons */
+.feature-button {
+  background: transparent;
+  border: 2px solid var(--ifm-color-primary);
+  color: var(--ifm-color-primary);
+  padding: 6px 12px;
+  border-radius: 6px;
+  margin-right: 10px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 0.9rem;
+}
+
+.feature-button:hover,
+.feature-button.active {
+  background: var(--ifm-color-primary);
+  color: white;
+}

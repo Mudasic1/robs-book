@@ -1,0 +1,88 @@
+---
+sidebar_position: 1
+---
+
+# Module 4: Vision-Language-Action (VLA)
+
+Welcome to **Module 4: Vision-Language-Action**! This is where AI meets robotics - the convergence of Large Language Models and physical robot control.
+
+## What is VLA?
+
+**Vision-Language-Action (VLA)** models combine:
+
+- **Vision**: Understanding the visual world through cameras
+- **Language**: Natural language understanding and generation
+- **Action**: Translating understanding into robot movements
+
+## The VLA Pipeline
+
+```
+Voice Command → Speech-to-Text → LLM Planning → Action Sequence → Robot Execution
+```
+
+### Example Flow
+
+1. **User**: "Clean the room"
+2. **Whisper**: Transcribes to text
+3. **LLM**: Plans sequence: [navigate, detect_objects, pick, place]
+4. **ROS 2**: Executes actions on robot
+5. **Vision**: Confirms task completion
+
+## Why VLA Matters
+
+- **Natural Interaction**: Talk to robots like humans
+- **Flexible Behavior**: No need to pre-program every task
+- **Adaptive**: Robots can handle novel situations
+- **Accessible**: Non-experts can command robots
+
+## What You'll Learn
+
+- ✅ Integrate OpenAI Whisper for voice commands
+- ✅ Use LLMs for cognitive planning
+- ✅ Translate language to ROS 2 actions
+- ✅ Build a complete autonomous humanoid system
+- ✅ Complete the capstone project
+
+## Technologies We'll Use
+
+### Speech Recognition
+
+- **OpenAI Whisper**: State-of-the-art speech-to-text
+- **Real-time Processing**: Low-latency transcription
+
+### Language Models
+
+- **GPT-4**: For complex reasoning and planning
+- **LangChain**: For structured LLM workflows
+- **Function Calling**: Direct action execution
+
+### Robot Control
+
+- **ROS 2 Actions**: Long-running tasks
+- **MoveIt 2**: Motion planning
+- **Nav2**: Navigation stack
+
+## Prerequisites
+
+- Completed Modules 1, 2, and 3
+- Understanding of LLMs and prompting
+- Python async programming
+- ROS 2 action servers
+
+## Installation
+
+```bash
+# Install Whisper
+pip install openai-whisper
+
+# Install LangChain
+pip install langchain openai
+
+# Install ROS 2 dependencies
+sudo apt install ros-humble-moveit
+sudo apt install ros-humble-nav2-bringup
+```
+
+## Next Steps
+
+Start with [Voice-to-Action](./voice-to-action.mdx)!

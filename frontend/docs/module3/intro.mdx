@@ -1,0 +1,80 @@
+---
+sidebar_position: 1
+---
+
+# Module 3: The AI-Robot Brain (NVIDIA Isaac)
+
+Welcome to **Module 3: The AI-Robot Brain**! This module covers NVIDIA Isaac™, the industry-leading platform for AI-powered robotics.
+
+## What is NVIDIA Isaac?
+
+NVIDIA Isaac is a comprehensive platform for developing, testing, and deploying AI-powered robots. It consists of:
+
+### Isaac Sim
+
+- **Photorealistic Simulation**: RTX-accelerated rendering
+- **Synthetic Data Generation**: Create unlimited labeled training data
+- **Physics Accuracy**: NVIDIA PhysX for realistic dynamics
+- **ROS 2 Integration**: Seamless connection to ROS ecosystem
+
+### Isaac ROS
+
+- **Hardware-Accelerated Perception**: GPU-powered computer vision
+- **VSLAM**: Visual Simultaneous Localization and Mapping
+- **Object Detection**: Real-time AI inference
+- **Navigation**: Advanced path planning algorithms
+
+## Why Isaac for Humanoid Robots?
+
+1. **Performance**: GPU acceleration for real-time AI
+2. **Realism**: Photorealistic sim-to-real transfer
+3. **Scale**: Train on millions of synthetic scenarios
+4. **Integration**: Works with ROS 2, PyTorch, TensorFlow
+
+## What You'll Learn
+
+- ✅ Set up Isaac Sim for humanoid simulation
+- ✅ Generate synthetic training data
+- ✅ Implement hardware-accelerated VSLAM
+- ✅ Use Nav2 for bipedal path planning
+- ✅ Deploy AI models on NVIDIA Jetson
+
+## Prerequisites
+
+- Completed Modules 1 & 2
+- NVIDIA GPU (RTX 2060 or better recommended)
+- Basic understanding of computer vision
+- Familiarity with deep learning concepts
+
+## Installation
+
+### Isaac Sim
+
+```bash
+# Download from NVIDIA Omniverse
+# Install Omniverse Launcher
+# Install Isaac Sim 2023.1.1 or newer
+
+# Verify installation
+./isaac-sim.sh --help
+```
+
+### Isaac ROS
+
+```bash
+# Install Isaac ROS packages
+sudo apt install ros-humble-isaac-ros-visual-slam
+sudo apt install ros-humble-isaac-ros-apriltag
+sudo apt install ros-humble-isaac-ros-object-detection
+```
+
+## System Requirements
+
+- **OS**: Ubuntu 22.04
+- **GPU**: NVIDIA RTX series (Turing or newer)
+- **RAM**: 32GB+ recommended
+- **Storage**: 50GB+ for Isaac Sim
+
+## Next Steps
+
+Let's dive into [Isaac Sim](./isaac-sim.mdx)!

@@ -1,0 +1,202 @@
+---
+sidebar_position: 4
+---
+
+# URDF for Humanoid Robots
+
+## What is URDF?
+
+**URDF (Unified Robot Description Format)** is an XML format for representing a robot model. For humanoid robots, URDF defines the kinematic and dynamic properties of the robot's body structure.
+
+## Humanoid Robot Structure
+
+A typical humanoid robot consists of:
+
+- **Torso**: Central body structure
+- **Head**: Sensors and cameras
+- **Arms**: 2 arms with shoulders, elbows, wrists
+- **Hands**: Grippers or dexterous fingers
+- **Legs**: 2 legs with hips, knees, ankles
+- **Feet**: Contact points with ground
+
+## Basic URDF Structure
+
+```xml
+<?xml version="1.0"?>
+<robot name="humanoid_robot">
+
+  <!-- Base Link (Torso) -->
+  <link name="torso">
+    <visual>
+      <geometry>
+        <box size="0.3 0.4 0.6"/>
+      </geometry>
+      <material name="blue">
+        <color rgba="0 0 1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.3 0.4 0.6"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="10.0"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0"
+               iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+  </link>
+
+  <!-- Head -->
+  <link name="head">
+    <visual>
+      <geometry>
+        <sphere radius="0.15"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <mass value="2.0"/>
+      <inertia ixx="0.1" ixy="0.0" ixz="0.0"
+               iyy="0.1" iyz="0.0" izz="0.1"/>
+    </inertial>
+  </link>
+
+  <!-- Neck Joint -->
+  <joint name="neck_joint" type="revolute">
+    <parent link="torso"/>
+    <child link="head"/>
+    <origin xyz="0 0 0.35" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-1.57" upper="1.57" effort="10" velocity="1.0"/>
+  </joint>
+
+</robot>
+```
+
+## Humanoid Leg Example
+
+```xml
+<!-- Right Hip -->
+<link name="right_hip">
+  <visual>
+    <geometry>
+      <cylinder radius="0.05" length="0.1"/>
+    </geometry>
+  </visual>
+  <inertial>
+    <mass value="1.0"/>
+    <inertia ixx="0.01" ixy="0" ixz="0"
+             iyy="0.01" iyz="0" izz="0.01"/>
+  </inertial>
+</link>
+
+<joint name="right_hip_joint" type="revolute">
+  <parent link="torso"/>
+  <child link="right_hip"/>
+  <origin xyz="-0.1 -0.2 -0.3" rpy="0 0 0"/>
+  <axis xyz="1 0 0"/>
+  <limit lower="-1.57" upper="1.57" effort="100" velocity="2.0"/>
+</joint>
+
+<!-- Right Thigh -->
+<link name="right_thigh">
+  <visual>
+    <geometry>
+      <cylinder radius="0.06" length="0.4"/>
+    </geometry>
+  </visual>
+  <inertial>
+    <mass value="3.0"/>
+    <inertia ixx="0.05" ixy="0" ixz="0"
+             iyy="0.05" iyz="0" izz="0.01"/>
+  </inertial>
+</link>
+
+<joint name="right_thigh_joint" type="revolute">
+  <parent link="right_hip"/>
+  <child link="right_thigh"/>
+  <origin xyz="0 0 -0.05" rpy="0 0 0"/>
+  <axis xyz="0 1 0"/>
+  <limit lower="-2.0" upper="0.5" effort="150" velocity="2.0"/>
+</joint>
+
+<!-- Right Knee -->
+<link name="right_shin">
+  <visual>
+    <geometry>
+      <cylinder radius="0.05" length="0.4"/>
+    </geometry>
+  </visual>
+  <inertial>
+    <mass value="2.0"/>
+    <inertia ixx="0.03" ixy="0" ixz="0"
+             iyy="0.03" iyz="0" izz="0.01"/>
+  </inertial>
+</link>
+
+<joint name="right_knee_joint" type="revolute">
+  <parent link="right_thigh"/>
+  <child link="right_shin"/>
+  <origin xyz="0 0 -0.2" rpy="0 0 0"/>
+  <axis xyz="0 1 0"/>
+  <limit lower="0" upper="2.5" effort="100" velocity="2.0"/>
+</joint>
+```
+
+## Loading URDF in Python
+
+```python
+import rclpy
+from rclpy.node import Node
+from urdf_parser_py.urdf import URDF
+
+class URDFLoader(Node):
+    def __init__(self):
+        super().__init__('urdf_loader')
+
+        # Load URDF from file
+        self.robot = URDF.from_xml_file('humanoid.urdf')
+
+        # Print robot info
+        self.get_logger().info(f'Robot name: {self.robot.name}')
+        self.get_logger().info(f'Number of links: {len(self.robot.links)}')
+        self.get_logger().info(f'Number of joints: {len(self.robot.joints)}')
+
+        # Analyze joints
+        for joint in self.robot.joints:
+            self.get_logger().info(
+                f'Joint: {joint.name}, Type: {joint.type}'
+            )
+```
+
+## Visualizing URDF
+
+```bash
+# Install visualization tools
+sudo apt install ros-humble-joint-state-publisher-gui
+sudo apt install ros-humble-robot-state-publisher
+
+# Launch visualization
+ros2 launch urdf_tutorial display.launch.py model:=humanoid.urdf
+```
+
+## Best Practices
+
+1. **Realistic Masses**: Use accurate mass values for physics simulation
+2. **Proper Inertia**: Calculate inertia tensors correctly
+3. **Joint Limits**: Set realistic joint angle limits
+4. **Collision Geometry**: Simplify collision meshes for performance
+5. **Coordinate Frames**: Follow ROS conventions (x-forward, z-up)
+
+## Exercise
+
+Create a complete humanoid URDF with:
+
+- Torso, head, 2 arms, 2 legs
+- At least 20 degrees of freedom
+- Realistic joint limits
+- Proper mass distribution
+
+## Next Module
+
+Continue to [Module 2: Digital Twin (Gazebo & Unity)](../module2/intro.mdx)!

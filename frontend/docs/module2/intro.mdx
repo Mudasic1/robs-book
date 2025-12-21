@@ -1,0 +1,76 @@
+---
+sidebar_position: 1
+---
+
+# Module 2: The Digital Twin
+
+Welcome to **Module 2: The Digital Twin**! In this module, you'll learn how to create realistic simulations of humanoid robots using Gazebo and Unity.
+
+## What is a Digital Twin?
+
+A **digital twin** is a virtual replica of a physical robot that behaves identically to its real-world counterpart. It allows you to:
+
+- Test algorithms safely before deploying to hardware
+- Generate synthetic training data for AI models
+- Visualize robot behavior in real-time
+- Simulate dangerous or expensive scenarios
+
+## Why Use Simulation?
+
+### Benefits
+
+- **Safety**: Test without risking expensive hardware
+- **Speed**: Iterate faster than real-world testing
+- **Scale**: Run multiple simulations in parallel
+- **Data Generation**: Create unlimited training scenarios
+
+### Tools We'll Use
+
+#### Gazebo
+
+- **Physics Engine**: Realistic gravity, friction, collisions
+- **Sensor Simulation**: LiDAR, cameras, IMUs
+- **ROS 2 Integration**: Native support for ROS topics/services
+- **Best For**: Physics-accurate testing
+
+#### Unity
+
+- **High-Fidelity Graphics**: Photorealistic rendering
+- **Human-Robot Interaction**: Simulate people and environments
+- **ML-Agents**: Built-in reinforcement learning
+- **Best For**: Visual AI training and HRI
+
+## What You'll Learn
+
+- ✅ Set up Gazebo for humanoid simulation
+- ✅ Create realistic physics environments
+- ✅ Integrate Unity with ROS 2
+- ✅ Simulate sensors (LiDAR, depth cameras, IMUs)
+- ✅ Generate synthetic data for AI training
+
+## Prerequisites
+
+- Completed Module 1 (ROS 2 basics)
+- Basic understanding of 3D coordinate systems
+- Familiarity with URDF
+
+## Installation
+
+### Gazebo
+
+```bash
+sudo apt install ros-humble-gazebo-ros-pkgs
+sudo apt install ros-humble-gazebo-ros2-control
+```
+
+### Unity (with ROS-TCP-Connector)
+
+```bash
+# Install Unity Hub
+# Download Unity 2021.3 LTS or newer
+# Install ROS-TCP-Connector package in Unity
+```
+
+## Next Steps
+
+Let's start with [Gazebo Simulation](./gazebo-simulation.mdx)!

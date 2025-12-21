@@ -1,0 +1,198 @@
+---
+sidebar_position: 3
+---
+
+# Python Integration with rclpy
+
+## Introduction to rclpy
+
+`rclpy` is the Python client library for ROS 2. It allows you to write ROS 2 nodes in Python, making it perfect for integrating AI agents and machine learning models with your robot.
+
+## Bridging AI Agents to ROS
+
+One of the most powerful use cases is connecting Python-based AI models (like those using PyTorch, TensorFlow, or LangChain) to ROS 2 for robot control.
+
+### Example: AI Vision Agent
+
+```python
+import rclpy
+from rclpy.node import Node
+from sensor_msgs.msg import Image
+from std_msgs.msg import String
+from cv_bridge import CvBridge
+import cv2
+import numpy as np
+
+class VisionAgent(Node):
+    def __init__(self):
+        super().__init__('vision_agent')
+
+        # Subscribe to camera feed
+        self.subscription = self.create_subscription(
+            Image,
+            '/camera/image_raw',
+            self.image_callback,
+            10
+        )
+
+        # Publish detected objects
+        self.publisher = self.create_publisher(
+            String,
+            '/detected_objects',
+            10
+        )
+
+        self.bridge = CvBridge()
+        self.get_logger().info('Vision Agent initialized!')
+
+    def image_callback(self, msg):
+        # Convert ROS Image to OpenCV format
+        cv_image = self.bridge.imgmsg_to_cv2(msg, 'bgr8')
+
+        # Run your AI model here
+        detected_objects = self.detect_objects(cv_image)
+
+        # Publish results
+        result_msg = String()
+        result_msg.data = f'Detected: {detected_objects}'
+        self.publisher.publish(result_msg)
+
+    def detect_objects(self, image):
+        # Placeholder for your AI model
+        # Could use YOLO, CLIP, or any vision model
+        return ['person', 'chair', 'table']
+```
+
+## LLM Integration for Robot Control
+
+```python
+from openai import OpenAI
+from geometry_msgs.msg import Twist
+
+class LLMRobotController(Node):
+    def __init__(self):
+        super().__init__('llm_controller')
+
+        # Subscribe to voice commands
+        self.subscription = self.create_subscription(
+            String,
+            '/voice_command',
+            self.command_callback,
+            10
+        )
+
+        # Publish movement commands
+        self.cmd_publisher = self.create_publisher(
+            Twist,
+            '/cmd_vel',
+            10
+        )
+
+        self.llm_client = OpenAI()
+
+    def command_callback(self, msg):
+        command = msg.data
+        self.get_logger().info(f'Received command: {command}')
+
+        # Use LLM to interpret command
+        action = self.interpret_command(command)
+
+        # Execute action
+        self.execute_action(action)
+
+    def interpret_command(self, command):
+        prompt = f"""
+        Convert this natural language command into robot actions:
+        Command: {command}
+
+        Available actions: move_forward, move_backward, turn_left, turn_right, stop
+        Return only the action name.
+        """
+
+        response = self.llm_client.chat.completions.create(
+            model="gpt-4",
+            messages=[{"role": "user", "content": prompt}]
+        )
+
+        return response.choices[0].message.content.strip()
+
+    def execute_action(self, action):
+        twist = Twist()
+
+        if action == 'move_forward':
+            twist.linear.x = 0.5
+        elif action == 'move_backward':
+            twist.linear.x = -0.5
+        elif action == 'turn_left':
+            twist.angular.z = 0.5
+        elif action == 'turn_right':
+            twist.angular.z = -0.5
+
+        self.cmd_publisher.publish(twist)
+        self.get_logger().info(f'Executing: {action}')
+```
+
+## Advanced: Multi-threaded Execution
+
+For AI models that require significant computation, use multi-threaded executors:
+
+```python
+from rclpy.executors import MultiThreadedExecutor
+import threading
+
+class HeavyAINode(Node):
+    def __init__(self):
+        super().__init__('heavy_ai_node')
+
+        self.subscription = self.create_subscription(
+            Image,
+            '/camera/image',
+            self.process_image,
+            10
+        )
+
+        # Use callback group for parallel execution
+        self.callback_group = rclpy.callback_groups.ReentrantCallbackGroup()
+
+    def process_image(self, msg):
+        # Heavy AI processing happens here
+        # Won't block other callbacks
+        result = self.run_heavy_model(msg)
+        self.publish_result(result)
+
+def main():
+    rclpy.init()
+
+    node = HeavyAINode()
+
+    # Use multi-threaded executor
+    executor = MultiThreadedExecutor(num_threads=4)
+    executor.add_node(node)
+
+    try:
+        executor.spin()
+    finally:
+        executor.shutdown()
+        node.destroy_node()
+        rclpy.shutdown()
+```
+
+## Best Practices for AI-ROS Integration
+
+1. **Asynchronous Processing**: Use callbacks and futures for non-blocking AI inference
+2. **Message Queues**: Set appropriate queue sizes for high-frequency data
+3. **Error Handling**: Wrap AI model calls in try-except blocks
+4. **Resource Management**: Clean up models and connections properly
+5. **Logging**: Use ROS logging for debugging AI decisions
+
+## Exercise
+
+Create an AI-powered obstacle detector:
+
+- Subscribe to LiDAR data
+- Use a simple ML model to classify obstacles
+- Publish obstacle locations for navigation
+
+## Next Steps
+
+Learn about [URDF for Humanoid Robots](./urdf-humanoids.mdx)!
