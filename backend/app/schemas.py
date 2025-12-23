@@ -13,7 +13,7 @@ class UserLogin(BaseModel):
     password: str
 
 class UserResponse(BaseModel):
-    id: int
+    id: str  # Changed from int to str to support UUID
     email: str
     name: Optional[str]
     software_background: Optional[str]
@@ -26,6 +26,7 @@ class UserResponse(BaseModel):
 class Token(BaseModel):
     access_token: str
     token_type: str
+    user: Optional[UserResponse] = None
 
 class ChatRequest(BaseModel):
     question: str
