@@ -7,8 +7,5 @@ passlib[bcrypt]
 bcrypt==3.2.2
 python-jose[cryptography]
 pydantic[email]
-qdrant-client
-google-generativeai
-asyncpg
-greenlet
+httpx
 python-multipart
