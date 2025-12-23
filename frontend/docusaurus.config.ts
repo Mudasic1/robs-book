@@ -101,8 +101,11 @@ const config: Config = {
   } satisfies Preset.ThemeConfig,
 
   customFields: {
-    // API URL for development vs production
-    apiUrl: process.env.REACT_APP_API_URL || "http://localhost:8000",
+    // API URL for development vs production - normalized to remove trailing slash
+    apiUrl: (process.env.REACT_APP_API_URL || "http://localhost:8000").replace(
+      /\/$/,
+      ""
+    ),
   },
 };
 

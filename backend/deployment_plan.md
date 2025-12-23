@@ -51,6 +51,7 @@ Ensure these are set in your Vercel Project Settings (Environment Variables):
 
 ## 4. Production Security Tips
 
-- **CORS**: Ensure `CORS_ORIGINS` is restricted to your production frontend domain only.
+- **CORS**: Ensure `CORS_ORIGINS` includes `https://robs-book-full.vercel.app`.
+- **API URL**: Ensure `REACT_APP_API_URL` does NOT end with a `/` (e.g. `https://robs-book.vercel.app`).
 - **HTTPS**: Vercel handles SSL automatically.
 - **Secrets**: NEVER commit your `.env` file to version control.
