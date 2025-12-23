@@ -11,6 +11,4 @@ qdrant-client
 google-generativeai
 asyncpg
 greenlet
-requests
-itsdangerous
 python-multipart
