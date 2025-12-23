@@ -1,14 +1,15 @@
 import { themes as prismThemes } from "prism-react-renderer";
 import type { Config } from "@docusaurus/types";
 import type * as Preset from "@docusaurus/preset-classic";
+import "dotenv/config";
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
   title: "Physical AI & Humanoid Robotics",
   tagline: "From Digital Brains to Physical Bodies",
-  url: "https://your-docusaurus-test-site.com", // Replace with actual URL
-  baseUrl: "/physical-ai-textbook/",
+  url: process.env.URL || "https://physical-ai-textbook.vercel.app",
+  baseUrl: process.env.BASE_URL || "/",
 
   organizationName: "yourusername",
   projectName: "physical-ai-textbook",
