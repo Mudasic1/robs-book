@@ -11,12 +11,19 @@ Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Physical AI Textbook API")
 
-# CORS - Updated for cookie-based authentication
-origins = os.getenv("CORS_ORIGINS", "http://localhost:3000,https://robs-book-full.vercel.app").split(",")
+# CORS - Allow both frontend origins and local development
+default_origins = [
+    "http://localhost:3000",
+    "https://robs-book.vercel.app",
+    "https://robs-book-full.vercel.app"
+]
+env_origins = os.getenv("CORS_ORIGINS", "").split(",")
+origins = list(set([o for o in env_origins if o] + default_origins))
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
-    allow_credentials=True,  # Required for cookies
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )

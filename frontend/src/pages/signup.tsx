@@ -9,7 +9,8 @@ export default function Signup() {
   const { siteConfig } = useDocusaurusContext();
   const { login } = useAuth();
   const history = useHistory();
-  const apiUrl = siteConfig.customFields?.apiUrl as string;
+  const rawApiUrl = siteConfig.customFields?.apiUrl as string;
+  const apiUrl = rawApiUrl.replace(/\/$/, "");
 
   const [formData, setFormData] = useState({
     email: "",

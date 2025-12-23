@@ -12,7 +12,8 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const history = useHistory();
-  const apiUrl = siteConfig.customFields?.apiUrl as string;
+  const rawApiUrl = siteConfig.customFields?.apiUrl as string;
+  const apiUrl = rawApiUrl.replace(/\/$/, "");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
