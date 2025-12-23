@@ -5,6 +5,21 @@ const sidebars: SidebarsConfig = {
     "intro",
     {
       type: "category",
+      label: "Module 0a: Python Fundamentals",
+      items: ["module0a/intro"],
+    },
+    {
+      type: "category",
+      label: "Module 0b: ML & DL Basics",
+      items: ["module0b/intro"],
+    },
+    {
+      type: "category",
+      label: "Module 0c: GenAI Fundamentals",
+      items: ["module0c/intro"],
+    },
+    {
+      type: "category",
       label: "Module 1: The Robotic Nervous System (ROS 2)",
       items: [
         "module1/intro",

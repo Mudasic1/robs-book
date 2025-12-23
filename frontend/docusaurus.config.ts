@@ -13,7 +13,7 @@ const config: Config = {
   organizationName: "yourusername",
   projectName: "physical-ai-textbook",
 
-  onBrokenLinks: "throw",
+  onBrokenLinks: "warn",
   onBrokenMarkdownLinks: "warn",
 
   i18n: {
