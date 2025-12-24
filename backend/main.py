@@ -11,21 +11,24 @@ Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Physical AI Textbook API")
 
-# CORS - Allow both frontend origins and local development
-default_origins = [
-    "http://localhost:3000",
-    "https://robs-book.vercel.app",
-    "https://robs-book-full.vercel.app"
-]
-env_origins = os.getenv("CORS_ORIGINS", "").split(",")
-origins = list(set([o for o in env_origins if o] + default_origins))
+# Get allowed origins from environment variable
+allowed_origins_str = os.getenv(
+    "CORS_ORIGINS", 
+    "http://localhost:3000,https://robs-book-full.vercel.app"
+)
+allowed_origins = [origin.strip() for origin in allowed_origins_str.split(",")]
 
+print(f"🔧 CORS enabled for origins: {allowed_origins}")  # Debug log
+
+# CORS configuration
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=allowed_origins,  # Use environment variable
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+    allow_headers=["Content-Type", "Authorization", "Accept", "Origin", "X-Requested-With"],
+    expose_headers=["Content-Length", "Content-Range"],
+    max_age=3600,  # Cache preflight requests for 1 hour
 )
 
 app.include_router(auth_router)
