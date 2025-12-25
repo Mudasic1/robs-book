@@ -32,6 +32,14 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
         raise credentials_exception
     return user
 
+@router.get("/signup")
+def signup_get():
+    """Helpful message for GET requests to signup"""
+    return {
+        "message": "This is the Signup API endpoint. Please use a POST request to create an account.",
+        "frontend_url": "http://localhost:3000/signup"
+    }
+
 @router.post("/signup", response_model=Token)
 def signup(user: UserCreate, db: Session = Depends(get_db)):
     """Register a new user and return JWT token"""
@@ -58,6 +66,14 @@ def signup(user: UserCreate, db: Session = Depends(get_db)):
     )
     
     return {"access_token": access_token, "token_type": "bearer", "user": new_user}
+
+@router.get("/login")
+def login_get():
+    """Helpful message for GET requests to login"""
+    return {
+        "message": "This is the Login API endpoint. Please use a POST request to sign in.",
+        "frontend_url": "http://localhost:3000/login"
+    }
 
 @router.post("/login", response_model=Token)
 def login(user_credentials: UserLogin, db: Session = Depends(get_db)):
