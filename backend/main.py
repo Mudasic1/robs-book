@@ -14,7 +14,7 @@ app = FastAPI(title="Physical AI Textbook API")
 # CORS (Cross-Origin Resource Sharing) middleware configuration
 origins = [
     "http://localhost:3000",
-    "https://robs-book-full.vercel.app/",
+    "https://robs-book-full.vercel.app",
 ]
 
 app.add_middleware(
